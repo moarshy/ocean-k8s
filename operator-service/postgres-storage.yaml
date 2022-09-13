@@ -1,0 +1,31 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-pv-volume
+  labels:
+    type: local
+    app: postgres
+  namespace: ocean-operator
+spec:
+  storageClassName: gp-ours
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-pv-claim
+  labels:
+    app: postgres
+  namespace: ocean-operator
+spec:
+  storageClassName: gp-ours
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
